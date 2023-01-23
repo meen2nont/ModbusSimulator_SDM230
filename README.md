@@ -10,5 +10,6 @@ Modbus Simulator Server + Client for Ubuntu
 
 
 <h3> Sample Node-RED </h3>
+Import file "Nod-RED-SMD320.json" to Node-RED <br />
 
 ![Screenshot 2023-01-23 at 15 24 03](https://user-images.githubusercontent.com/22194506/213994520-61af1f57-07dd-4202-bfdf-82279f33e0ba.png)
