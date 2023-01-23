@@ -1,4 +1,4 @@
-# ModbusSimulator_SMD320
+# ModbusSimulator_SDM230
 Modbus Simulator Server + Client for Ubuntu
 
 
