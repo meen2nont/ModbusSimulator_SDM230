@@ -1,0 +1,119 @@
+[
+    {
+        "id": "5e18b15fd2697f8c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e0a714b133655fcf",
+        "type": "modbus-read",
+        "z": "5e18b15fd2697f8c",
+        "name": "",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "72",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "e185069f5e000bbf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "87e4f7fe11ab9d2e"
+            ],
+            [
+                "aadb506ce535f51e"
+            ]
+        ]
+    },
+    {
+        "id": "87e4f7fe11ab9d2e",
+        "type": "modbus-response",
+        "z": "5e18b15fd2697f8c",
+        "name": "",
+        "registerShowMax": "99",
+        "x": 530,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "aadb506ce535f51e",
+        "type": "function",
+        "z": "5e18b15fd2697f8c",
+        "name": "function 3",
+        "func": "let voltage = msg.payload.buffer.readFloatBE(0, 4);\nlet current = msg.payload.buffer.readFloatBE(12, 4);\nlet power = msg.payload.buffer.readFloatBE(24, 4);\nlet va = msg.payload.buffer.readFloatBE(36, 4);\nlet reactivepower = msg.payload.buffer.readFloatBE(48, 4);\nlet powerfactor = msg.payload.buffer.readFloatBE(60, 4);\nlet phaseangle = msg.payload.buffer.readFloatBE(72, 4);\nlet frequency = msg.payload.buffer.readFloatBE(104, 4);\nreturn [\n    {\n        payload: {\n            Voltage: parseFloat(voltage),\n            Current: parseFloat(current),\n            Power: parseFloat(power),\n            VA: parseFloat(va),\n            VAr: parseFloat(reactivepower),\n            PowerFactor: parseFloat(powerfactor),\n            PhaseAngle: parseFloat(phaseangle),\n            Frequency: parseFloat(frequency)\n        }, topic: \"Eastron-SDM230\"\n    }\n];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 500,
+        "wires": [
+            [
+                "c269b4dada2af150"
+            ]
+        ]
+    },
+    {
+        "id": "c269b4dada2af150",
+        "type": "debug",
+        "z": "5e18b15fd2697f8c",
+        "name": "Show Final Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "e185069f5e000bbf",
+        "type": "modbus-client",
+        "name": "Modbus_Emulator",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "3",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": true,
+        "showWarnings": true,
+        "showLogs": true
+    }
+]
